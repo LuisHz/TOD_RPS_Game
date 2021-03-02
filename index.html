@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego - papel, piedra o tijera</title>
+</head>
+<boyd>
+    <script>
+        function computerPlay() {
+            let options = ["piedra", "papel", "tijera"];
+            let choice = options[Math.floor(Math.random() * (3 - 0) + 0)];
+
+            return choice;
+        }
+
+        function playerPlay() {
+            let choice = prompt("Ingresa piedra, papel o tijera").toLowerCase();
+            return choice;
+            
+        }
+
+        function playRound(computerSelection, playerSelection) {
+            if (computerSelection == playerSelection) {
+                return "Es un empate!!!";
+            } else if (computerSelection != playerSelection) {
+                if (computerSelection == "piedra" && playerSelection == "tijera"
+                    || computerSelection == "tijera" && playerSelection == "papel"
+                    || computerSelection == "papel" && playerSelection == "piedra") {
+                    return "Gana la computadora!!!";
+                } else {
+                    return "Gana el jugador!!!";
+                }
+            }
+        }
+
+        function defineWinner(playerScore, computerScore, draw){
+            if(computerScore > playerScore) {
+                return "Gana la computadora!!!";
+            }else if(playerScore > computerScore){
+                return "Gana el jugador!!!";
+            }else{
+                return "Es un empate";
+            }
+        }
+
+        function game() {
+            let numberRounds = 5;
+            let playerScore = 0;
+            let computerScore = 0;
+            let draw = 0;
+            let computerSelection;
+            let playerSelection;
+            let results;
+
+            for (let i = 0; i < numberRounds; i++) {
+
+                computerSelection = computerPlay();
+                playerSelection = playerPlay();
+                results = playRound(computerSelection, playerSelection);
+                
+                if (results.indexOf("jugador") > 0) {
+                    playerScore++;
+                } else if (results.indexOf("computadora") > 0) {
+                    computerScore++;
+                } else {
+                    draw++;
+                }
+                console.log("Eleccion de la computadora " + computerSelection + 
+                "\nElerccion del jugador " + playerSelection + 
+                "\n" + results);
+                console.log("==============================")
+                console.log("-El score actual es el siguiente-" +
+                    "\nJugador: " + playerScore +
+                    "\nComputadora: " + computerScore +
+                    "\nEmpates: " + draw);
+                console.log("==============================")
+            }
+
+            console.log(defineWinner(playerScore, computerScore, draw));
+        }
+
+        game();
+    </script>
+</boyd>
+
+</html>
